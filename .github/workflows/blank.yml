@@ -1,0 +1,78 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CIO-4
+  uses: actions/cache@v4.0.0
+  with:
+    # A list of files, directories, and wildcard patterns to cache and restore
+    path: 
+    # An explicit key for restoring and saving the cache
+    key: 
+    # An ordered list of keys to use for restoring stale cache if no cache hit occurred for key. Note `cache-hit` returns false in this case.
+    restore-keys: # optional
+    # The chunk size used to split up large files during upload, in bytes
+    upload-chunk-size: # optional
+    # An optional boolean when enabled, allows windows runners to save or restore caches that can be restored or saved respectively on other platforms
+    enableCrossOsArchive: # optional, default is false
+    # Fail the workflow if cache entry is not found
+    fail-on-cache-miss: # optional, default is false
+    # Check if a cache entry exists for the given input(s) (key, restore-keys) without downloading the cache
+    lookup-only: # optional, default is false
+    # Run the post step to save the cache even if another step before fails
+    save-always: # optional, default is false
+          
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+    
+ - имя: Setup Node.js среда 
+ использует: actions/setup-node@v4.0.1
+ с помощью:
+ # Установите always-auth в npmrc.
+ always-auth: # необязательно, по умолчанию false
+ # Спецификация используемой версии. Примеры: 12.x, 10.15.1, >=10.15.0.
+ версия узла: # необязательно
+ # Файл, содержащий спецификацию используемой версии. Примеры: package.json, .nvmrc, .node-version, .tool-versions.
+ файл node-version: # необязательно
+ # Целевая архитектура для использования Node. Примеры: x86, x64. По умолчанию будет использоваться архитектура системы.
+ архитектура: # необязательно
+ # Установите этот параметр, если вы хотите, чтобы действие проверяло наличие последней доступной версии, удовлетворяющей спецификации версии.
+ проверка-последняя: # необязательно
+ # Необязательный реестр для настройки аутентификации. Установит реестр на уровне проекта .npmrc и .файл yarnrc и настройте auth для чтения из env.NODE_AUTH_TOKEN.
+ url реестра: # необязательно
+ # Необязательная область для аутентификации в реестрах с ограниченной областью действия. Будет возвращен владельцу репозитория при использовании реестра пакетов GitHub (https://npm.pkg.github.com/).
+ область применения: # необязательно
+ # Используется для извлечения дистрибутивов node из node-versions. Поскольку существует значение по умолчанию, пользователь обычно его не предоставляет. При выполнении этого действия на github.com достаточно значения по умолчанию. При работе на GHES вы можете передать личный токен доступа для github.com если у вас ограничено скорость.
+ токен: # необязательно, по умолчанию ${{ github.server_url == 'https://github.com' && github.token || " }}
+ # Используется для указания менеджера пакетов для кэширования в каталоге по умолчанию. Поддерживаемые значения: npm, yarn, pnpm.
+ кэш: # необязательно
+ # Используется для указания пути к файлу зависимости: package-lock.json, yarn.lock и т.д. Поддерживает подстановочные знаки или список имен файлов для кэширования нескольких зависимостей.
+ cache-dependency-path: # необязательно
+ 
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      # Runs a single command using the runners shell
+      - name: Run a one-line script
+        run: echo Hello, world!
+
+      # Runs a set of commands using the runners shell
+      - name: Run a multi-line script
+        run: |
+          echo Add other actions to build,
+          echo test, and deploy your project.
